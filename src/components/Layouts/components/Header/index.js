@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark, faMagnifyingGlass, faSpinner } from '@fortawesome/free-solid-svg-icons';
@@ -7,11 +7,18 @@ import Tippy from '@tippyjs/react/headless';
 import { Wrapper as PopperWrapper } from '../../../Popper';
 import styles from './Header.module.scss';
 import tiktokLogo from '../../../../assets/images/index';
+import AccountItem from '../../../AccountItem';
 
 const cx = classNames.bind(styles);
 console.log(tiktokLogo.logo);
 function Header() {
-    const [searchResult, setSearchResult] = useState([1, 2]);
+    const [searchResult, setSearchResult] = useState([]);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setSearchResult([]);
+        }, 3000);
+    }, []);
 
     return (
         <header className={cx('wrapper')}>
@@ -24,7 +31,13 @@ function Header() {
                     visible={searchResult.length > 0}
                     render={(attrs) => (
                         <div className={cx('search-result')} tabIndex="-1" {...attrs}>
-                            <PopperWrapper>Result</PopperWrapper>
+                            <PopperWrapper>
+                                <h4 className={cx('search-title')}>Accounts</h4>
+                                <AccountItem />
+                                <AccountItem />
+                                <AccountItem />
+                                <AccountItem />
+                            </PopperWrapper>
                         </div>
                     )}
                 >
